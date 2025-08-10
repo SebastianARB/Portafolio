@@ -1,0 +1,212 @@
+
+/* ---------- Reset moderno + utilidades ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  color: #1f2328;
+  background:
+    linear-gradient(0deg, rgba(15,15,20,.75), rgba(15,15,20,.75)),
+    url("imagenes/coolbackgrounds-particles-compute.png") center/cover fixed no-repeat;
+}
+
+/* Links sin subrayado por defecto, heredando color */
+a:where(:link, :visited) { color: inherit; text-decoration: none; }
+a:focus-visible { outline: 3px solid rgba(14,165,233,.35); outline-offset: 3px; border-radius: 10px; }
+
+/* ---------- Sistema de diseño ---------- */
+:root{
+  --bg-surface: #ffffff;
+  --bg-elev: #f8fafc;
+  --primary: #0ea5e9;
+  --primary-600: #0284c7;
+  --text: #0b1220;
+  --muted: #64748b;
+  --radius: 16px;
+  --shadow: 0 10px 25px rgba(3,7,18,.12), 0 4px 10px rgba(2,6,23,.08);
+  --border: 1px solid rgba(2,6,23,.08);
+}
+
+/* Contenedor principal */
+.contenedor{
+  width: min(1100px, 92vw);
+  margin: clamp(16px, 3vw, 32px) auto;
+  background: rgba(255,255,255,.08);         /* fondo semitransparente (requerido p/blur) */
+  border: 1px solid rgba(255,255,255,.12);
+  -webkit-backdrop-filter: blur(6px);         /* Safari/iOS */
+  backdrop-filter: blur(6px);                 /* Estándar */
+  border-radius: 16px;
+  padding: clamp(20px, 4vw, 36px);
+  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+/* Fallback cuando NO hay soporte para backdrop-filter */
+@supports not ((-webkit-backdrop-filter: blur(0)) or (backdrop-filter: blur(0))) {
+  .contenedor{
+    background: rgba(17, 24, 39, 0.50);      /* vidrio “sólido”: mayor contraste sin blur */
+    border-color: rgba(255,255,255,.08);
+  }
+}
+/* ---------- Encabezado ---------- */
+header{
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  text-align: center;
+  padding-block: 8px;
+}
+
+h1{
+  font-size: clamp(28px, 4.5vw, 48px);
+  line-height: 1.9;
+  color: #e5e7eb;
+  text-shadow: 0 1px 0 rgba(0,0,0,.25);
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+header img{
+  width: clamp(80px, 12vw, 120px);
+  height: clamp(80px, 12vw, 120px);
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: var(--shadow);
+  border: 2px solid rgba(255,255,255,.25);
+  transition: transform .4s ease, box-shadow .4s ease;
+}
+header img:hover{ transform: translateY(-3px); }
+
+/* títulos secciones */
+.titulo-icono{
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: clamp(22px, 3.5vw, 34px);
+  color: #e5e7eb;
+  text-shadow: 0 1px 0 rgba(0,0,0,.25);
+}
+.icono{ width: 1.25em; height: 1.25em; }
+
+/* separador */
+.separacion{
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent);
+  width: 90%;
+  margin: 18px auto;
+}
+
+/* ---------- Sobre mí ---------- */
+#presentacion{
+  font-weight: 700;
+  font-size: clamp(18px, 2.6vw, 24px);
+  text-align: center;
+  width: min(800px, 90%);
+  margin: 8px auto 16px;
+}
+#sobre-mi,
+#tecnologias,#proyectos,
+.titulo-icono{
+  text-align: center;
+  color: #b8b8b8;
+}
+#sobre-mi p{
+  width: min(900px, 92%);
+  margin: 25px auto;
+  font-size: clamp(15px, 2.2vw, 18px);
+  line-height: 1.6;
+  color: #d8dfe7;
+}
+
+#sobre-mi #presentacion{
+  font-weight: 700;
+  font-size: clamp(20px, 3vw, 28px);
+  color: #ee8308;
+  margin-bottom: 16px;
+}
+
+/* ---------- Tarjetas proyectos ---------- */
+.proyectos{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 2vw, 18px);
+  margin-top: 16px;
+}
+
+.proyecto-box{
+  background: var(--bg-elev);
+  border: var(--border);
+  border-radius: 14px;
+  overflow: clip;
+  box-shadow: var(--shadow);
+  transition: transform .6s cubic-bezier(.2,.8,.2,1), box-shadow .6s, background-color .6s;
+  will-change: transform;
+}
+.proyecto-box:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 18px 35px rgba(2,6,23,.18);
+  background: #ffffff;
+}
+
+.proyecto-box img{
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+
+.proyecto-box h3{
+  font-size: clamp(18px, 2.5vw, 22px);
+  color: var(--text);
+  margin: 14px 16px 4px;
+}
+.proyecto-box p{
+  font-size: clamp(14px, 2.2vw, 16px);
+  color: var(--muted);
+  margin: 0 16px 16px;
+}
+
+/* ---------- Tecnologías ---------- */
+#tecnologias{ width: min(1100px, 94%); margin: 0 auto; }
+
+.tech-grid{
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(10px, 2vw, 16px);
+}
+
+.tecnologias{
+  width: 100%;
+  aspect-ratio: 1.8/1;
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px;
+  border: var(--border);
+  box-shadow: var(--shadow);
+  transition: transform .6s cubic-bezier(.2,.8,.2,1), box-shadow .6s;
+}
+.tecnologias:hover{
+  transform: translateY(-5px);
+  box-shadow: 0 16px 30px rgba(2,6,23,.14);
+}
+
+/* ---------- Responsive ---------- */
+@media (min-width: 640px){
+  .proyectos{ grid-template-columns: repeat(2, 1fr); }
+  .tech-grid{ grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 960px){
+  .proyectos{ grid-template-columns: repeat(3, 1fr); }
+  .tech-grid{ grid-template-columns: repeat(6, 1fr); }
+}
+
+/* Accesibilidad: reduce animación si el usuario lo prefiere */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important; }
+}
